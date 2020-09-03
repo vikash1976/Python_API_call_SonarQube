@@ -12,9 +12,10 @@ from requests.exceptions import HTTPError
 from getpass import getpass
 
 # TOKEN = "d736a9c5368d4d3906505655191a403cb08bbee2"
-SONARQUBE_QUALITYGATE_API = "http://52.242.78.141:9000/api/qualitygates"
+SONARQUBE_QUALITYGATE_API = input("SonarQube URL like http://localhost:9000: ")+"/api/qualitygates"
 USER = input('User: ')
 PASS = getpass()
+QUALITY_GATE_NAME = input("Quality Gate Name: ")
 
 CONDITIONS = {
     0: ["coverage", "LT", "100"],
@@ -48,7 +49,7 @@ def create_quality_gate(quality_gate_name):
     except HTTPError as http_error:
         print(
             'Quality Gate creation failed. It can be due to duplicate quality \
-            gate name or invalid credentials. It throws the following HTTP Error : {}'
+gate name or invalid credentials. It throws the following HTTP Error : {}'
             .format(http_error)
             )
     except Exception as err:
@@ -82,7 +83,7 @@ def set_qg_default(gate_id):
 
 if __name__ == "__main__":
     try:
-        gate_id = create_quality_gate('testQG')
+        gate_id = create_quality_gate(QUALITY_GATE_NAME)
         if gate_id:
             for _, val in CONDITIONS.items():
                 result = add_conditions(gate_id, val[0], val[1], val[2])
