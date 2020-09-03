@@ -11,7 +11,7 @@ import requests
 from requests.exceptions import HTTPError
 from getpass import getpass
 
-# TOKEN = "d736a9c5368d4d3906505655191a403cb08bbee2"
+
 SONARQUBE_QUALITYGATE_API = input("SonarQube URL like http://localhost:9000: ")+"/api/qualitygates"
 USER = input('User: ')
 PASS = getpass()
